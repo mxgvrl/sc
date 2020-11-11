@@ -12,13 +12,18 @@ Tree.prototype.newNode = function (value) {
 }
 
 Tree.prototype.add = function (value) {
-    let currentNode = this.newNode(value);
-    if (!this.root) {
-        this.root = currentNode;
-    } else {
-        this.insert(currentNode);
+    if (typeof(value) === 'number') {
+        let currentNode = this.newNode(value);
+        if (!this.root) {
+            this.root = currentNode;
+        } else {
+            this.insert(currentNode);
+        }
+        return this
     }
-    return this
+    else {
+        console.log('You can input numbers only')
+    }
 }
 
 Tree.prototype.insert = function (currentNode) {
@@ -141,17 +146,31 @@ Tree.prototype.traverseLTR = function () {
     return nodesList;
 }
 
+
+// let bar = true;
+// let input;
+// input = prompt('This is tree. What do you want to do: 1) Add value; 2) Remove value; 3) Find value; 4) LTR traverse; 5) RTL traverse; 6) Add default values; 0) Exit ', '0');
+// while (bar) {
+//     switch (input) {
+//         case 1:
+//             let tree = new Tree();
+//             tree.add(+(prompt('input value', '0')));
+//             break;
+//     }
+// }
+
+
+
 // --- CREATING ---
 let tree = new Tree();
-tree.add(50) // todo: check for input values type
-    .add(49)
-    .add(78)
-    .add(20)
-    .add(32)
-    .add(2)
-    .add(5)
-    .add(6)
-    .add(1);
+tree.add(50);
+tree.add(78);
+tree.add('node');
+tree.add(32);
+tree.add(20);
+tree.add(5);
+tree.add(6);
+tree.add(1);
 
 // --- REMOVING ---
 // let treeToCheck = tree.findNodeByValue(25);
@@ -164,12 +183,12 @@ tree.add(50) // todo: check for input values type
 // console.log('Founded node', temp)
 
 // --- RTL TRAVERSE ---
-let listRTL = tree.traverseRTL();
-let strRTL = 'RTL: ';
-while (listRTL.length) {
-    strRTL += listRTL.shift() + ', '
-}
-console.log(strRTL)
+// let listRTL = tree.traverseRTL();
+// let strRTL = 'RTL: ';
+// while (listRTL.length) {
+//     strRTL += listRTL.shift() + ', '
+// }
+// console.log(strRTL)
 
 // --- LTR TRAVERSE ---
 let listLTR = tree.traverseLTR(); // todo: fix traverse bug by adding marks for visited nodes
