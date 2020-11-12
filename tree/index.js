@@ -76,32 +76,6 @@ Tree.prototype.findNodeByValue = function (value) {
     return currentNode
 }
 
-// i'm an idiot!
-// Tree.prototype.traverseRTL = function () {
-//     let currentNode = this.root;
-//     let nodesList = [];
-//     let traverse = function (node) {
-//         if (node !== null) {
-//             if (node.right !== null) {
-//                 nodesList.push(node.right.value);
-//                 if (node.left !== null) {
-//                     nodesList.push(node.left.value);
-//                 }
-//                 traverse(node.right);
-//             }
-//             else {
-//                 if (node.left !== null) {
-//                     nodesList.push(node.left.value);
-//                     traverse(node.left)
-//                 }
-//                 traverse(node.parent.left)
-//             }
-//         }
-//     }
-//     traverse(currentNode)
-//     return nodesList;
-// }
-
 Tree.prototype.traverseRTL = function () {
     let node = this.root;
     let nodesList = [node.value];
@@ -189,34 +163,35 @@ tree.add(100);
 tree.add(99);
 
 // --- REMOVING ---
-// let treeToCheck = tree.findNodeByValue(25);
-// console.log('Tree', treeToCheck);
-// tree.remove(10);
-// console.log('Tree after remove', treeToCheck);
+let treeToCheck = tree.findNodeByValue(25);
+console.log('Tree', treeToCheck);
+tree.remove(10);
+console.log('Tree after remove', treeToCheck);
 
 // --- FINDING ---
-// let temp = tree.findNodeByValue(10);
-// console.log('Founded node', temp)
+let temp = tree.findNodeByValue(10);
+console.log('Founded node', temp)
 
 // --- RTL TRAVERSE ---
-// let listRTL = tree.traverseRTL();
-// let strRTL = 'RTL: ';
-// while (listRTL.length) {
-//     strRTL += listRTL.shift() + ', '
-// }
-// console.log(strRTL)
+let listRTL = tree.traverseRTL();
+let strRTL = 'RTL: ';
+while (listRTL.length) {
+    strRTL += listRTL.shift() + ', '
+}
+console.log(strRTL)
 
 // --- LTR TRAVERSE ---
-// let listLTR = tree.traverseLTR();
-// let strLTR = 'LTR: ';
-// while (listLTR.length) {
-//     strLTR += listLTR.shift() + ', '
-// }
-// console.log(strLTR)
+let listLTR = tree.traverseLTR();
+let strLTR = 'LTR: ';
+while (listLTR.length) {
+    strLTR += listLTR.shift() + ', '
+}
+console.log(strLTR)
 
+console.log('-------------NLR traverse---------------')
 tree.NLR(tree.root)
-console.log('-----------------------------')
+console.log('-------------LNR traverse---------------')
 tree.LNR(tree.root)
-console.log('-----------------------------')
+console.log('-------------LRN traverse---------------')
 tree.LRN(tree.root)
 
