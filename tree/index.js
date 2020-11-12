@@ -146,20 +146,29 @@ Tree.prototype.traverseLTR = function () {
     return nodesList;
 }
 
+Tree.prototype.NLR = function (node) {
+    if (node != null) {
+        console.log(node.value);
+        this.NLR(node.left);
+        this.NLR(node.right);
+    }
+}
 
-// let bar = true;
-// let input;
-// input = prompt('This is tree. What do you want to do: 1) Add value; 2) Remove value; 3) Find value; 4) LTR traverse; 5) RTL traverse; 6) Add default values; 0) Exit ', '0');
-// while (bar) {
-//     switch (input) {
-//         case 1:
-//             let tree = new Tree();
-//             tree.add(+(prompt('input value', '0')));
-//             break;
-//     }
-// }
+Tree.prototype.LNR = function (node) {
+    if (node != null) {
+        this.LNR(node.left);
+        console.log(node.value);
+        this.LNR(node.right);
+    }
+}
 
-
+Tree.prototype.LRN = function (node) {
+    if (node != null) {
+        this.LRN(node.left);
+        this.LRN(node.right);
+        console.log(node.value);
+    }
+}
 
 // --- CREATING ---
 let tree = new Tree();
@@ -171,6 +180,13 @@ tree.add(20);
 tree.add(5);
 tree.add(6);
 tree.add(1);
+tree.add(41);
+tree.add(35);
+tree.add(48);
+tree.add(70);
+tree.add(81);
+tree.add(100);
+tree.add(99);
 
 // --- REMOVING ---
 // let treeToCheck = tree.findNodeByValue(25);
@@ -191,10 +207,16 @@ tree.add(1);
 // console.log(strRTL)
 
 // --- LTR TRAVERSE ---
-let listLTR = tree.traverseLTR(); // todo: fix traverse bug by adding marks for visited nodes
-let strLTR = 'LTR: ';
-while (listLTR.length) {
-    strLTR += listLTR.shift() + ', '
-}
-console.log(strLTR)
+// let listLTR = tree.traverseLTR();
+// let strLTR = 'LTR: ';
+// while (listLTR.length) {
+//     strLTR += listLTR.shift() + ', '
+// }
+// console.log(strLTR)
+
+tree.NLR(tree.root)
+console.log('-----------------------------')
+tree.LNR(tree.root)
+console.log('-----------------------------')
+tree.LRN(tree.root)
 
