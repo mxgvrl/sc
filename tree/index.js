@@ -51,29 +51,70 @@ Tree.prototype.insert = function (currentNode) {
     traverse(this.root)
 }
 
-Tree.prototype.remove = function (value) {
-    let toRemove = this.findNodeByValue(value).parent;
-    toRemove.left = null;
-    toRemove.right = null;
+Tree.prototype.remove = function (value, _node) {
+    let node = _node ? tree.findNodeByValue(value, _node) : tree.findNodeByValue(value);
+    if (node !== null) {
+        if (node.left === null && node.right === null) {
+            if (node.parent.right === node) {node.parent.right = null;}
+            else if (node.parent.left === node) {node.parent.left = null;}
+            return node;
+        }
+        else if (node.left === null) {
+            if (node.parent.right === node) {
+                node.parent.right = node.right
+            }
+            if (node.parent.left === node) {
+                node.parent.left = node.right
+            }
+            return node;
+        }
+        else if (node.right === null) {
+            if (node.parent.right === node) {
+                node.parent.right = node.left
+            }
+            if (node.parent.left === node) {
+                node.parent.left = node.left
+            }
+            return node;
+        }
+        let insertedNode = this.findMin(node.right);
+        node.value = insertedNode.value;
+        let bar = this.findNodeByValue(node.value, node.right);
+        this.remove(bar.value, bar);
+        node.right = this.remove(node.right.value);
+        return node;
+    }
+    else {
+        console.log('value you try to delete is null')
+    }
 }
 
-Tree.prototype.findNodeByValue = function (value) {
-    let currentNode = this.root;
-    let traverse = function (node) {
-        if (node.value !== value) {
-            if (value < node.value) {
-                traverse(node.left)
+Tree.prototype.findMin = function(node) {
+    let traverse = function(node) {
+        return !node.left ? node : traverse(node.left);
+    }
+    return traverse(node);
+}
+
+Tree.prototype.findNodeByValue = function (value, _node) {
+    if (tree.contains(value)) {
+        let currentNode = _node ? _node : this.root;
+        let traverse = function (node) {
+            if (node != null && node.value !== value) {
+                if (value < node.value) {
+                    traverse(node.left)
+                }
+                else {
+                    traverse(node.right)
+                }
             }
             else {
-                traverse(node.right)
+                currentNode = node;
             }
         }
-        else {
-            currentNode = node;
-        }
+        traverse(currentNode)
+        return currentNode
     }
-    traverse(currentNode)
-    return currentNode
 }
 
 Tree.prototype.traverseRTL = function () {
@@ -144,6 +185,24 @@ Tree.prototype.LRN = function (node) {
     }
 }
 
+Tree.prototype.contains = function(value) {
+    let node = this.root;
+    let traverse = function(node) {
+        if (!node) {
+            console.log('This value is not exists')
+            return false;
+        }
+        if (value === node.value) {
+            return true;
+        } else if (value > node.value) {
+            return traverse(node.right);
+        } else if (value < node.value) {
+            return traverse(node.left);
+        }
+    }
+    return traverse(node);
+}
+
 // --- CREATING ---
 let tree = new Tree();
 tree.add(50);
@@ -161,37 +220,43 @@ tree.add(70);
 tree.add(81);
 tree.add(100);
 tree.add(99);
+tree.add(80);
+
 
 // --- REMOVING ---
-let treeToCheck = tree.findNodeByValue(25);
-console.log('Tree', treeToCheck);
-tree.remove(10);
-console.log('Tree after remove', treeToCheck);
+let valueToRemove = tree.findNodeByValue(51);
+if (valueToRemove) {
+    console.log('-------------- PRE-REMOVING OBJECT PARENT --------------', valueToRemove.parent);
+    tree.remove(valueToRemove.value);
+    console.log('-------------- AFTER REMOVE OBJECT --------------', valueToRemove);
+}
+
 
 // --- FINDING ---
-let temp = tree.findNodeByValue(10);
-console.log('Founded node', temp)
+// let temp = tree.findNodeByValue(10);
+// if (temp) {
+//     console.log('Founded node', temp)
+// }
 
 // --- RTL TRAVERSE ---
-let listRTL = tree.traverseRTL();
-let strRTL = 'RTL: ';
-while (listRTL.length) {
-    strRTL += listRTL.shift() + ', '
-}
-console.log(strRTL)
+// let listRTL = tree.traverseRTL();
+// let strRTL = 'RTL: ';
+// while (listRTL.length) {
+//     strRTL += listRTL.shift() + ', '
+// }
+// console.log(strRTL)
 
-// --- LTR TRAVERSE ---
-let listLTR = tree.traverseLTR();
-let strLTR = 'LTR: ';
-while (listLTR.length) {
-    strLTR += listLTR.shift() + ', '
-}
-console.log(strLTR)
+// // --- LTR TRAVERSE ---
+// let listLTR = tree.traverseLTR();
+// let strLTR = 'LTR: ';
+// while (listLTR.length) {
+//     strLTR += listLTR.shift() + ', '
+// }
+// console.log(strLTR)
 
-console.log('-------------NLR traverse---------------')
-tree.NLR(tree.root)
-console.log('-------------LNR traverse---------------')
-tree.LNR(tree.root)
-console.log('-------------LRN traverse---------------')
-tree.LRN(tree.root)
-
+// console.log('-------------NLR traverse---------------')
+// tree.NLR(tree.root)
+// console.log('-------------LNR traverse---------------')
+// tree.LNR(tree.root)
+// console.log('-------------LRN traverse---------------')
+// tree.LRN(tree.root)
