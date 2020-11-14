@@ -22,6 +22,18 @@ function sieveTraverse (n) {
      }
 }
 
+function start(){ //запускается при клике на кнопку
+    let s = "<table border=\"1\" cellpadding=\"5\" width=\"100%\">";
+    const userCount = document.getElementById("users").value;    //получил значение из input
+    const x = parseInt(userCount); //преобразовал из строки в число
+    for(let i = 0; i < x; i++){
+        s += "<tr><td>" + i + "</td></tr>";       //новая строка таблицы для каждого пользователя
+    }
+    s += "</table>";
+
+    document.body.innerHTML += s; //добавил в body, на самом деле можно добавить куда хотите))
+}
+
 filling(50);
 output();
 console.log('============================');
