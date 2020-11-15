@@ -117,14 +117,63 @@ function sieveTraverse1 () {
     const n = parseInt(userCount);
     let bar = document.getElementsByTagName('td');
     let coo = Array.prototype.slice.call(bar);
-        for (let i = 0; (i*i) <= n; i++) {
-            if (sieve[i] === true) {
-                for (let k = 0, j = i*i; j < n+1; ++k, j = (i*i) + (k*i)) {
-                    coo[j-2].innerHTML = '<tb style="background:#ff4141;">'+ +j +'</tb>'; // todo: animate
-                    sieve[j] = false;
-                }
+
+    for (let i = 0; (i*i) <= n; i++) {
+        if (sieve[i] === true) {
+            for (let k = 0, j = i*i; j < n+1; ++k, j = (i*i) + (k*i)) {
+                coo[j-2].innerHTML = '<tb style="background:#ff4141;">'+ +j +'</tb>';
+                sieve[j] = false ;
             }
         }
+    }
+}
+
+function sieveTraverse2 () {
+    const userCount = document.getElementById("users").value;
+    const n = parseInt(userCount);
+    let bar = document.getElementsByTagName('td');
+    let coo = Array.prototype.slice.call(bar);
+    let i = 0;
+    let j = i*i;
+    let k = 0;
+
+    let inside = function (i, j, k) {
+        if (j < n+1) {
+            setTimeout( () => {
+                coo[j-2].innerHTML = '<tb style="background:#ff4141;">'+ +j +'</tb>';
+                sieve[j] = false;
+                inside(i, (i*i) + (k*i) ,++k)
+            }, 100)
+        }
+        else {
+            outside(++i, n);
+        }
+    }
+
+    let outside = function (i, n) {
+        if ((i*i) <= n) {
+            if (sieve[i] === true) {
+                inside(i ,(i*i) + (k*i) ,++k)
+            }
+            else {
+                outside(++i, n);
+            }
+        }
+    }
+    outside(i, n);
+
+
+    // for (let i = 0; (i*i) <= n; i++) {
+    //     if (sieve[i] === true) {
+    //         setTimeout( () => {
+    //             for (let k = 0, j = i*i; j < n+1; ++k, j = (i*i) + (k*i)) {
+    //                 setTimeout( () => {
+    //
+    //                     , 100)
+    //             }
+    //         }, 2000);
+    //     }
+    // }
 }
 
 // filling(50);
