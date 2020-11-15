@@ -15,7 +15,7 @@ while (colors.length < 100) {
      }
  }
 
-function start(){
+function createTable(){
     document.getElementById('tab-content1').innerHTML = '';
     let tableTagString = "<table border=\"1\" cellpadding=\"5\">";
     cellsCount = +prompt('Table will fill at 2 to n. Input n', 2);
