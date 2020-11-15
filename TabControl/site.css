@@ -1,0 +1,106 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Century Gothic", sans-serif;
+}
+
+body {
+    width: 700px;
+    margin: auto;
+}
+
+.header * {
+    display: inline-block;
+}
+
+.head-buttons {
+    float: right;
+}
+
+.head-buttons button {
+    width: 100px;
+}
+
+.tab-content {
+    padding: 10px;
+    background: #d2d2d2;
+    width: 400px;
+    height: 250px;
+}
+
+.tab-menu {
+    padding-top: 20px;
+}
+
+.tab-menu .tab {
+    display: block;
+    float: left;
+}
+
+.tab-menu .tab > input[type="radio"] {
+    visibility: hidden;
+}
+
+.tab-menu .tab>label {
+    display: block;
+    padding: 5px 20px;
+    margin-right: 5px;
+    cursor: pointer;
+    position: relative;
+    background: #888888;
+}
+
+.tab-menu .tab-content {
+    z-index: 0;
+    overflow: hidden;
+    width: 400px;
+    padding: 25px;
+    position: absolute;
+    top: 57px;
+    left: 0px;
+    opacity:1;
+}
+
+.tab-menu>.tab>[id^="tab"]:checked + label {
+    top: 0;
+    background: #434343;
+    color: #F5F5F5;
+}
+
+.tab-menu>.tab>[id^="tab"]:checked ~ [id^="tab-content"] {
+    z-index: 1;
+    opacity: 1;
+}
+
+.section-left {
+    margin-top: 30px;
+    float: left;
+}
+
+.section-left button{
+    display: block;
+    width: 100px;
+    margin-top: 10px;
+}
+
+.section-right {
+    float: right;
+    /*margin-left: 155px;*/
+    margin-top: 10px;
+    position: relative;
+    width: 80%;
+}
+
+.footer {
+    position: absolute;
+    top: 480px;
+    width: 700px;
+}
+
+.footer>[id$="lorem"] {
+    float: left;
+}
+
+.footer>[id$="copyright"] {
+    float: right;
+}
