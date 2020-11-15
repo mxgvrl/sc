@@ -1,20 +1,13 @@
 let sieve = [];
-let userCount = 0;
-let colors = [
-    '#414040',
-    '#ffb3b3',
-    '#aaddbb',
-    '#3586ea',
-    '#e438f6',
-    '#ff7ce3',
-    '#eae353',
-    '#701e52',
-    '#256e5a',
-    '#c48b38',
-    '#efc784',
-    '#ff1212',
-    '#ddc65e'
-]
+let cellsCount = 0;
+
+let colors = [];
+while (colors.length < 100) {
+    do {
+        var color = Math.floor((Math.random()*1000000)+1);
+    } while (colors.indexOf(color) >= 0);
+    colors.push("#" + ("00000A" + color.toString(16)).slice(-6));
+}
 
  function filling (n) {
      for (let i = 2; i < n + 1; i++) {
@@ -22,32 +15,28 @@ let colors = [
      }
  }
 
-function output () {
-    for (let i = 0; i < sieve.length; i++) {
-        console.log(i + ' :', sieve[i]);
-    }
-}
-
 function start(){
     document.getElementById('tab-content1').innerHTML = '';
-    let s = "<table border=\"1\" cellpadding=\"5\">";
-    userCount = +prompt('Table will fill at 2 to n. Input n', 2);
-    if ((userCount < 200 && userCount > 1) && typeof(userCount) === 'number') {
-        const x = parseInt(userCount);
-        filling(x);
-        let y = Math.sqrt(x);
-        y = +y.toFixed();
-        if (y*y < x) {
-            s += addToTable(x, y,1, s)
+    let tableTagString = "<table border=\"1\" cellpadding=\"5\">";
+    cellsCount = +prompt('Table will fill at 2 to n. Input n', 2);
+    if ((cellsCount < 10000001 && cellsCount > 1) && typeof(cellsCount) === 'number') {
+        filling(cellsCount);
+        let cellsCountSqrt = Math.sqrt(cellsCount);
+        cellsCountSqrt = +cellsCountSqrt.toFixed();
+        if (cellsCountSqrt*cellsCountSqrt < cellsCount) {
+            tableTagString += addToTable(cellsCount, cellsCountSqrt,1, tableTagString)
         }
         else {
-            s += addToTable(x, y,0, s)
+            tableTagString += addToTable(cellsCount, cellsCountSqrt,0, tableTagString)
         }
-        s += "</table>";
-        document.getElementById('tab-content1').innerHTML += s;
+        tableTagString += "</table>";
+        document.getElementById('tab-content1').innerHTML += tableTagString;
     }
-    else if (userCount > 200 || userCount < 2){
-        alert('You can input values in range 2..200 only')
+    else if (cellsCount < 2){
+        alert('You can input values starts at 2 only')
+    }
+    else if (cellsCount > 1000000) {
+        alert('Too big value')
     }
     else {
         alert('You can input number only')
@@ -70,7 +59,6 @@ function addToTable(square ,minSide, isNotSquare, tableString) {
 }
 
 function sieveTraverse () {
-    const n = parseInt(userCount);
     let bar = document.getElementById('tab-content1').getElementsByTagName('td');
     let i = 0;
     let j = i*i;
@@ -78,16 +66,15 @@ function sieveTraverse () {
     let color = '#43a47d';
 
     let inside = function (i, j, k) {
-        if (j < n+1) {
+        if (j < cellsCount+1) {
             setTimeout( () => {
-
                 bar[j-2].outerHTML = `<td width="25px" align="center" style="background-color: ${color}">`+ +j +'</td>';
                 sieve[j] = false;
                 inside(i, (i*i) + (k*i) ,++k)
             }, 100)
         }
         else {
-            outside(++i, n);
+            outside(++i, cellsCount);
         }
     }
 
@@ -102,5 +89,5 @@ function sieveTraverse () {
             }
         }
     }
-    outside(i, n);
+    outside(i, cellsCount);
 }

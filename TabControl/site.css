@@ -4,6 +4,10 @@
     font-family: "Century Gothic", sans-serif;
 }
 
+html{
+    height: 100%;
+}
+
 body {
     width: 700px;
     margin: auto;
@@ -25,8 +29,8 @@ body {
 .tab-content {
     padding: 10px;
     background: #ffffff;
-    width: 400px;
-    height: 250px;
+    width: 100%;
+    height: 20px;
 }
 
 .tab-menu {
@@ -57,7 +61,7 @@ body {
 
 .tab-menu .tab-content {
     z-index: 0;
-    overflow: hidden;
+    overflow: scroll;
     width: 400px;
     height: 400px;
     padding: 10px;
