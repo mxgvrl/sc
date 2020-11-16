@@ -19,7 +19,7 @@ function createTable(){
     document.getElementById('tab-content1').innerHTML = '';
     let tableTagString = "<table border=\"1\" cellpadding=\"5\">";
     cellsCount = +prompt('Table will fill at 2 to n. Input n', 2);
-    if ((cellsCount < 10000001 && cellsCount > 1) && typeof(cellsCount) === 'number') {
+    if ((cellsCount < 1000001 && cellsCount > 1) && typeof(cellsCount) === 'number') {
         filling(cellsCount);
         let cellsCountSqrt = Math.sqrt(cellsCount);
         cellsCountSqrt = +cellsCountSqrt.toFixed();
