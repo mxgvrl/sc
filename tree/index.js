@@ -54,25 +54,25 @@ Tree.prototype.insert = function (currentNode) {
 Tree.prototype.remove = function (value, _node) {
     let node = _node ? tree.findNodeByValue(value, _node) : tree.findNodeByValue(value);
     if (node !== null) {
-        if (node.left === null && node.right === null) {
-            if (node.parent.right === node) {node.parent.right = null;}
-            else if (node.parent.left === node) {node.parent.left = null;}
+        if (node?.left === null && node?.right === null) {
+            if (node.parent?.right === node) {node.parent.right = null;}
+            else if (node.parent?.left === node) {node.parent.left = null;}
             return node;
         }
-        else if (node.left === null) {
-            if (node.parent.right === node) {
+        else if (node?.left === null) {
+            if (node.parent?.right === node) {
                 node.parent.right = node.right
             }
-            if (node.parent.left === node) {
+            if (node.parent?.left === node) {
                 node.parent.left = node.right
             }
             return node;
         }
-        else if (node.right === null) {
-            if (node.parent.right === node) {
+        else if (node?.right === null) {
+            if (node.parent?.right === node) {
                 node.parent.right = node.left
             }
-            if (node.parent.left === node) {
+            if (node.parent?.left === node) {
                 node.parent.left = node.left
             }
             return node;
@@ -115,50 +115,6 @@ Tree.prototype.findNodeByValue = function (value, _node) {
         traverse(currentNode)
         return currentNode
     }
-}
-
-Tree.prototype.traverseRTL = function () {
-    let node = this.root;
-    let nodesList = [node.value];
-    while (node !== null) {
-        if (node.right !== null) {
-            nodesList.push(node.right.value);
-            if (node.left !== null) {
-                nodesList.push(node.left.value);
-            }
-            node = node.right;
-        }
-        else {
-            if (node.left !== null) {
-                nodesList.push(node.left.value);
-                node = node.left
-            }
-            node = node.parent.left
-        }
-    }
-    return nodesList;
-}
-
-Tree.prototype.traverseLTR = function () {
-    let node = this.root;
-    let nodesList = [node.value];
-    while (node !== null) {
-        if (node.left !== null) {
-            nodesList.push(node.left.value);
-            if (node.right !== null) {
-                nodesList.push(node.right.value);
-            }
-            node = node.left;
-        }
-        else {
-            if (node.right !== null) {
-                nodesList.push(node.right.value);
-                node = node.right
-            }
-            node = node.parent.right
-        }
-    }
-    return nodesList;
 }
 
 Tree.prototype.NLR = function (node) {
@@ -205,54 +161,35 @@ Tree.prototype.contains = function(value) {
 
 // --- CREATING ---
 let tree = new Tree();
-tree.add(50);
-tree.add(78);
-tree.add('node');
-tree.add(32);
-tree.add(20);
-tree.add(5);
-tree.add(6);
 tree.add(1);
-tree.add(41);
-tree.add(35);
-tree.add(48);
-tree.add(70);
-tree.add(81);
-tree.add(100);
-tree.add(99);
-tree.add(80);
-
+tree.add(2);
+tree.add(3);
+// tree.add(20);
+// tree.add(5);
+// tree.add(6);
+// tree.add(1);
+// tree.add(41);
+// tree.add(35);
+// tree.add(48);
+// tree.add(70);
+// tree.add(81);
+// tree.add(100);
+// tree.add(99);
+// tree.add(80);
 
 // --- REMOVING ---
-let valueToRemove = tree.findNodeByValue(51);
+let valueToRemove = tree.findNodeByValue(3);
 if (valueToRemove) {
     console.log('-------------- PRE-REMOVING OBJECT PARENT --------------', valueToRemove.parent);
     tree.remove(valueToRemove.value);
     console.log('-------------- AFTER REMOVE OBJECT --------------', valueToRemove);
 }
 
-
 // --- FINDING ---
-// let temp = tree.findNodeByValue(10);
-// if (temp) {
-//     console.log('Founded node', temp)
-// }
-
-// --- RTL TRAVERSE ---
-// let listRTL = tree.traverseRTL();
-// let strRTL = 'RTL: ';
-// while (listRTL.length) {
-//     strRTL += listRTL.shift() + ', '
-// }
-// console.log(strRTL)
-
-// // --- LTR TRAVERSE ---
-// let listLTR = tree.traverseLTR();
-// let strLTR = 'LTR: ';
-// while (listLTR.length) {
-//     strLTR += listLTR.shift() + ', '
-// }
-// console.log(strLTR)
+let temp = tree.findNodeByValue(3);
+if (temp) {
+    console.log('Founded node', temp)
+}
 
 // console.log('-------------NLR traverse---------------')
 // tree.NLR(tree.root)
