@@ -15,7 +15,7 @@ function inter (callback) {
     }
     tran(i);
 
-    document.write('fuck')
+    document.write('luck')
 }
 
 
