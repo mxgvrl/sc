@@ -20,7 +20,10 @@ class Warrior extends Human{
     }
 
      attack (enemy) {
-        if (!this.isDead) {
+        if (this.isDead) {
+            console.log('Warrior dead')
+        }
+        else {
             if (this.isFrozen === false) {
                 if (enemy.defense > 0) {
                     enemy.defense -= this.damage;
@@ -43,9 +46,6 @@ class Warrior extends Human{
                 enemy.attack(this);
             }
         }
-
-            //console.log('Warrior dead')
-
     }
 }
 
@@ -55,7 +55,10 @@ class Knight extends Human{
     }
 
      attack (enemy) {
-        if (!this.isDead) {
+        if (this.isDead) {
+            console.log('Knight dead');
+        }
+        else {
             switch (randomize(0, 1)) {
                 case 0:
                     if (enemy.defense > 0) {
@@ -82,9 +85,6 @@ class Knight extends Human{
             }
             enemy.attack(this);
         }
-
-            //console.log('Knight dead');
-
     }
 
     freeze (enemy) {
@@ -104,21 +104,3 @@ let w1 = new Warrior(100, 10, 50);
 
 k1.attack(w1);
 
-
-
-// class Человек (int hp, int damage, int defense)
-//
-// свойства:
-//     здоровье
-// урон
-// вероятность атаки или защиты     random
-//
-// метод
-// Defense()
-// Atack()
-// isDeath() return (true : false)
-//
-//
-// class воин extends Человек
-//
-// class рыцарь extends Человек
