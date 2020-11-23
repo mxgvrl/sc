@@ -1,26 +1,34 @@
 export default class Censure {
-    static #a = ['fuck', 'bitch', 'shit', 'cock'];
+    static #a = ['fuck', 'bitch', 'shit', 'cock']; // я извиняюсь, но такой был таск
 
     static #createRegex (value) {
-        let subString = 0;
+        let subString = '';
         subString = this.#a.pop();
-        if (value.indexOf(subString)) {
+        if (value.search(subString) !== -1) {
+            // let sup = subString.split('');
+            // for (let i = 0; i < sup.length; i++) {
+            //     sup[i] += '+'
+            // }
+            // subString = sup.join('');
             return `${subString}`
+        }
+        else {
+            return this.#createRegex(value);
         }
     }
 
     static removeAbusiveLanguage (value) {
-        let te = this.#createRegex(value)
-        if (te !== "undefined") {
-            let regexp = new RegExp(te, 'ig');
+        let regexPattern = this.#createRegex(value)
+        if (regexPattern !== "undefined") {
+            let regexp = new RegExp(regexPattern, 'ig');
             let replaceString = '*';
-            let temp = function (te) {
-                if (te.length > replaceString.length) {
+            let temp = function (regexPattern) {
+                if (regexPattern.length > replaceString.length) {
                     replaceString += '*';
-                    return temp(te);
+                    return temp(regexPattern);
                 }
             }
-            temp(te)
+            temp(regexPattern)
             return this.removeAbusiveLanguage(value.replace(regexp, replaceString));
         }
         else {
