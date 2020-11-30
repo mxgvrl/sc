@@ -1,15 +1,22 @@
 export default class Censure {
     static #a = ['fuck', 'bitch', 'shit', 'cock']; // я извиняюсь, но такой был таск
 
+    static #createMultiLetterRegex (regex) {
+        if (regex !== undefined) {
+            let sup = regex.split('');
+            for (let i = 0; i < sup.length; i++) {
+                sup[i] += '+'
+            }
+            return sup.join('');
+        }
+    }
+
     static #createRegex (value) {
         let subString = '';
         subString = this.#a.pop();
+        //subString = this.#createMultiLetterRegex(subString);
         if (value.search(subString) !== -1) {
-            // let sup = subString.split('');
-            // for (let i = 0; i < sup.length; i++) {
-            //     sup[i] += '+'
-            // }
-            // subString = sup.join('');
+            subString = this.#createMultiLetterRegex(subString);
             return `${subString}`
         }
         else {
