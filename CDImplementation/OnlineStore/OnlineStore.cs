@@ -1,8 +1,5 @@
 ﻿namespace OnlineStore {
     public class OnlineStore {
-
-
-        
         public class StoreFront {
             public static int SQLColumn(int information) {
                 var res = Customer(information);
@@ -11,6 +8,16 @@
             
             public static int Customer(int information) {
                 var res = information;
+                return res;
+            }
+            
+            public static int StoreAdmin(int information) {
+                var res = information;
+                return res;
+            }
+            
+            public static int Order(int information) {
+                var res = OrderSystem.OrderInformation(information);
                 return res;
             }
         }
@@ -29,7 +36,10 @@
                 return res;
             }
             
-
+            public static int OrderInformation(int information) {
+                var res = information;
+                return res;
+            }
         }
     }
 }
