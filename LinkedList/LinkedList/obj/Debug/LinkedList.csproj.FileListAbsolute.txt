@@ -1,0 +1,6 @@
+D:\Рабочий стол\sc\LinkedList\LinkedList\bin\Debug\LinkedList.exe
+D:\Рабочий стол\sc\LinkedList\LinkedList\bin\Debug\LinkedList.pdb
+D:\Рабочий стол\sc\LinkedList\LinkedList\obj\Debug\LinkedList.csprojAssemblyReference.cache
+D:\Рабочий стол\sc\LinkedList\LinkedList\obj\Debug\LinkedList.csproj.CoreCompileInputs.cache
+D:\Рабочий стол\sc\LinkedList\LinkedList\obj\Debug\LinkedList.exe
+D:\Рабочий стол\sc\LinkedList\LinkedList\obj\Debug\LinkedList.pdb
