@@ -2,68 +2,59 @@
 
 namespace LinkedList {
     public class Node {
-        public int value;
-        public Node next;
-        public Node prev;
-        public int index;
-        public Node root;
+        private readonly int _value;
+        private Node _next;
+        private Node _prev;
+        private readonly int _index;
+        private Node _root;
         public override string ToString() {
-            return $"[{this.index}] {this.value}";
+            return $"[{this._index}] {this._value}";
         }
 
-        public Node() { }
-        
         public Node(Node previous, int index, int value) {
-            this.index = index;
-            this.value = value;
+            this._index = index;
+            this._value = value;
             if (previous != null) {
-                this.prev = previous;
-                previous.next = this;
+                this._prev = previous;
+                previous._next = this;
             }
             else {
-                this.root = this;
+                this._root = this;
             }
         }
-        
-        // public Node(int index, int value) {
-        //     this.index = index;
-        //     this.value = value;
-        //     this.prev = null;
-        //     this.next = null;
-        // }
-        
+
         public Node(Node previous, int value) {
-            this.value = value;
-            this.prev = previous;
-            previous.next = this;
+            this._value = value;
+            this._prev = previous;
+            previous._next = this;
             var tempNode = previous;
             var index = 0;
             while (tempNode != null) {
-                if (tempNode.index == index) {
+                if (tempNode._index == index) {
                     index++;
-                    tempNode = previous.next;
-                    this.index = index;
+                    tempNode = previous._next;
+                    this._index = index;
                 }
                 else {
-                    this.index = index;
+                    this._index = index;
                 }
-                tempNode = tempNode.prev;
+                tempNode = tempNode._prev;
             }
         }
 
         private static Node FindNodeByIndex(Node node, int index) {
-            if(node.index == index) {
+            if(node._index == index) {
                 return node;
             }
-            if(node.next != null) {
-                return FindNodeByIndex(node.next, index);
+            if(node._next != null) {
+                return FindNodeByIndex(node._next, index);
             }
             Console.WriteLine($"Node with index {index} not found");
             return null;
         }
         
         public void ReadByIndex(int index) {
-            Node node = FindNodeByIndex(root, index);
+            Node node = FindNodeByIndex(_root, index);
             if (node != null) {
                 Console.WriteLine($"Node: {node}");
             }
@@ -71,80 +62,83 @@ namespace LinkedList {
         
         public void RemoveByIndex(int index)
         {
-            var marked = FindNodeByIndex(root, index);
+            var marked = FindNodeByIndex(_root, index);
             if (marked == null) return;
-            if(marked.prev != null && marked.next != null)
+            if(marked._prev != null && marked._next != null)
             {
-                marked.prev.next = marked.next;
-                marked.next.prev = marked.prev;
+                marked._prev._next = marked._next;
+                marked._next._prev = marked._prev;
             } 
             else
             {
-                if (marked.next != null) {
-                    marked.next.prev = null;
-                    root = marked.next;
+                if (marked._next != null) {
+                    marked._next._prev = null;
+                    _root = marked._next;
                 }
                 else {
-                    marked.prev.next = null;
+                    if (marked._prev != null) marked._prev._next = null;
                 }
             }
         }
 
         private void OutList(Node node) {
             Console.Write($"{node}  ");
-            if (node.next != null) {
-                OutList(node.next);
+            if (node._next != null) {
+                OutList(node._next);
             }
         }
 
         public void OutLinkedList() {
-            OutList(root);
+            OutList(_root);
             Console.WriteLine();
         }
 
         void swap(Node node, Node node2) {
-            if (node.prev != null && node2.next != null) {
-                node.next = node2.next;
-                node.next.prev = node;
-                node2.prev = node.prev;
-                node2.prev.next = node2;
+            if (node._prev != null && node2._next != null) {
+                node._next = node2._next;
+                node._next._prev = node;
+                node2._prev = node._prev;
+                node2._prev._next = node2;
             }
 
-            if (node2.next == null) {
-                node.next = null;
-                node2.prev = node.prev;
-                node2.prev.next = node2;
+            if (node2._next == null) {
+                node._next = null;
+                node2._prev = node._prev;
+                if (node2._prev != null) node2._prev._next = node2;
             }
             
-            if (node.prev == null) {
-                node.next = node2.next;
-                node.next.prev = node;
-                node2.prev = null;
-                node2.prev.next = node2;
+            if (node._prev == null) {
+                node._next = node2._next;
+                if (node._next != null) {
+                    node._next._prev = node;
+                    node2._prev = null;
+                }
+
+                if (node2._prev != null) node2._prev._next = node2;
             }
 
-            if (node.prev == null && node2.next == null) {
-                node.next = null;
-                node2.prev = null;
+            if (node._prev == null && node2._next == null) {
+                node._next = null;
+                node2._prev = null;
             }
             
-            node2.next = node;
-            node.prev = node2;
+            node2._next = node;
+            node._prev = node2;
         }
         
         public void Sort()
         {
-            var temp = root;
-            while (temp.next != null)
+            var temp = _root;
+            while (temp._next != null)
             {
-                if (temp.index > temp.next.index)
+                if (temp._index > temp._next._index)
                 {
-                    swap(temp, temp.next);
-                    if (temp.next != null) temp = temp.next;
+                    swap(temp, temp._next);
+                    if (temp._next != null) temp = temp._next;
                     Sort();
                 }
                 else
-                    temp = temp.next; 
+                    temp = temp._next; 
             }
         }
     }
