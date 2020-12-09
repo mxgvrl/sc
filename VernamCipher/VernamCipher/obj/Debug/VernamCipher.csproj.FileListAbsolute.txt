@@ -1,0 +1,6 @@
+D:\Рабочий стол\sc\VernamCipher\VernamCipher\bin\Debug\VernamCipher.exe
+D:\Рабочий стол\sc\VernamCipher\VernamCipher\bin\Debug\VernamCipher.pdb
+D:\Рабочий стол\sc\VernamCipher\VernamCipher\obj\Debug\VernamCipher.csprojAssemblyReference.cache
+D:\Рабочий стол\sc\VernamCipher\VernamCipher\obj\Debug\VernamCipher.csproj.CoreCompileInputs.cache
+D:\Рабочий стол\sc\VernamCipher\VernamCipher\obj\Debug\VernamCipher.exe
+D:\Рабочий стол\sc\VernamCipher\VernamCipher\obj\Debug\VernamCipher.pdb
