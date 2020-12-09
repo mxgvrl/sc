@@ -34,7 +34,11 @@ namespace VernamCipher {
             // Convert.ToInt32("1001101", 2).ToString();
             
             String s1  = vernam(str, key);
+            String s2  = vernam(s1, key);
+
             Console.WriteLine(s1);
+            Console.WriteLine(s2);
+
             Console.WriteLine(vernam(s1, key));
         }
 
@@ -47,9 +51,11 @@ namespace VernamCipher {
             
             char[] charArray = s.ToCharArray();
             string[] strArray = new String[charArray.Length];
-            
+
+            var iterator = 0;
             foreach (var c in charArray) {
-                strArray.Append(Convert.ToString(c, 2));
+                strArray[iterator] += (Convert.ToString(c, 2));
+                iterator++;
             }
             
             //string[] a = charArray.Select(c => Convert.ToString(c, 2));
