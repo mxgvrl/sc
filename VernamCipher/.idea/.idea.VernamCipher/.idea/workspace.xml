@@ -25,10 +25,6 @@
     <list default="true" id="23ddd71e-bf29-4b02-bd1a-494a27a837dd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VernamCipher/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VernamCipher/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VernamCipher/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VernamCipher/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VernamCipher/bin/Debug/VernamCipher.exe" beforeDir="false" afterPath="$PROJECT_DIR$/VernamCipher/bin/Debug/VernamCipher.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VernamCipher/bin/Debug/VernamCipher.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/VernamCipher/bin/Debug/VernamCipher.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VernamCipher/obj/Debug/VernamCipher.exe" beforeDir="false" afterPath="$PROJECT_DIR$/VernamCipher/obj/Debug/VernamCipher.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VernamCipher/obj/Debug/VernamCipher.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/VernamCipher/obj/Debug/VernamCipher.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,6 +90,7 @@
       <workItem from="1607435178771" duration="3519000" />
       <workItem from="1607453632028" duration="2673000" />
       <workItem from="1607515002679" duration="6843000" />
+      <workItem from="1607532080679" duration="1296000" />
     </task>
     <servers />
   </component>
