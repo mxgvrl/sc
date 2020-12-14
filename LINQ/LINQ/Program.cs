@@ -8,6 +8,7 @@ namespace LINQ {
             task1();
             task2();
             task3();
+            task4();
         }
 
         static void task1() {
@@ -36,25 +37,24 @@ namespace LINQ {
         }
 
         static void task4() {
-            // 4) Исходная последовательность содержит сведения о клиентах фитнес-центра. Каждый элемент
-            // последовательности включает следующие целочисленные поля:
-            //     <Код клиента> <Год> <Номер месяца>
-            //     <Продолжительность занятий (в часах)>
-            // Для каждой пары «год–месяц», присутствующей в исходных данных, ----- (GroupJoin?)
-            // определить общую продолжительность занятий 
-            // всех клиентов в указанное время                                ----- (Времени нет в классе)
-            // (вначале выводится общая продолжительность, затем год, затем месяц). 
-            // Сведения о каждой паре «год–месяц» выводить на новой строке и упорядочивать
-            // по возрастанию общей продолжительности занятий, 
-            // для одинаковой продолжительности — по убыванию номера года, адля одинакового номера года —
-            // по возрастанию номера месяца.
-
             var clients = new List<Client> {
                 new Client {Id = 1, Year = 2020, Month = 3, Duration = 2},
-                new Client {Id = 2, Year = 2020, Month = 6, Duration = 3},
+                new Client {Id = 2, Year = 2020, Month = 3, Duration = 3},
                 new Client {Id = 3, Year = 2019, Month = 12, Duration = 1},
-                new Client {Id = 4, Year = 2020, Month = 12, Duration = 2}
+                new Client {Id = 4, Year = 2020, Month = 11, Duration = 2}
             };
+
+            var t4 = clients.GroupBy(n => n.Month)
+                .Select(n => n.Where(m => m.Month == 3))
+                .Select(n => n.Select(m => m.Duration).Sum())
+                .OrderByDescending(n => n);
+
+            foreach (var n in t4) {
+                // foreach (var g in n) {
+                    Console.Write(n + "   ");
+                // }
+                Console.WriteLine();
+            }
         }
     }
 
@@ -63,7 +63,9 @@ namespace LINQ {
         public int Year;
         public int Month;
         public int Duration;
+
+        public override string ToString() {
+            return Id + " " + Year + " " + Month;
+        }
     }
-    
-    
 }
