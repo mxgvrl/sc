@@ -5,9 +5,9 @@ using System.Linq;
 namespace LINQ {
     internal class Program {
         public static void Main(string[] args) {
-            task1();
-            task2();
-            task3();
+            // task1();
+            // task2();
+            // task3();
             task4();
         }
 
@@ -40,12 +40,12 @@ namespace LINQ {
             var clients = new List<Client> {
                 new Client {Id = 1, Year = 2020, Month = 3, Duration = 2},
                 new Client {Id = 2, Year = 2020, Month = 3, Duration = 3},
+                new Client {Id = 2, Year = 2020, Month = 3, Duration = 2},
                 new Client {Id = 3, Year = 2019, Month = 12, Duration = 1},
                 new Client {Id = 4, Year = 2020, Month = 11, Duration = 2}
             };
 
-            var t4 = clients.GroupBy(n => n.Month)
-                .Select(n => n.Where(m => m.Month == 3))
+            var t4 = clients.GroupBy(n => new {n.Year, n.Month})
                 .Select(n => n.Select(m => m.Duration).Sum())
                 .OrderByDescending(n => n);
 
