@@ -36,7 +36,8 @@ name_ varchar(200)
 
 create table Bill (
 id int primary key identity, --reference mistake: primary key + foreign key  
-number varchar(200),
+number int
+foreign key (number) references Account(id) ,
 legal_entity int 
 	foreign key (legal_entity) references Account(id) 
 	on delete cascade 
@@ -109,9 +110,9 @@ INSERT INTO BillType VALUES
 SELECT * FROM BillType;
 
 INSERT INTO Bill VALUES
-('D23OJGLK345', 1, 3),
-('LDHDS80D0SL', 3, 2),
-('LJFIM384GKK', 2, 1)
+(1, 1, 3),
+(2, 3, 2),
+(3, 2, 1)
 SELECT * FROM Bill;
 
 INSERT INTO AdressType VALUES
@@ -134,7 +135,7 @@ SELECT * FROM Street;
 
 INSERT INTO Adress VALUES
 (1, 1, 1, 1, 1, 1),
-(0, 3, 1, 2, 1, 3),
+(1, 1, 1, 1, 1, 3),
 (1, 3, 2, 1, 3, 2)
 SELECT * FROM Adress;
 
@@ -147,10 +148,13 @@ Contact.legal_entity = Adress.legal_entity
 WHERE Adress.city IN (SELECT Adress.city FROM Adress GROUP BY city HAVING COUNT(city) > 1) AND 
 Adress.street IN (SELECT Adress.street FROM Adress GROUP BY street HAVING COUNT(street) > 1);
 
+
+--Список пользователей, чей адрес совпадает с каким либо Юр лицо - 
 SELECT Contact.name_, Contact.surname 
-FROM Contact JOIN Account ON
-Contact.legal_entity = Account.id JOIN Adress ON Adress.individual = Account.id
-WHERE Adress.city IN (SELECT city FROM Adress adr1 JOIN Contact ON Contact.legal_entity = adr1.legal_entity GROUP BY city HAVING COUNT(city) > 1) AND 
+FROM Contact 
+JOIN Account ON Contact.legal_entity = Account.id 
+JOIN Adress ON Adress.individual = Account.id
+WHERE Adress.id IN (SELECT Adress.id FROM Adress JOIN Contact ON Contact.legal_entity = Adress.legal_entity GROUP BY city HAVING COUNT(city) > 1) AND 
 Adress.street IN (SELECT street FROM Adress adr1 JOIN Contact ON Contact.legal_entity = adr1.legal_entity GROUP BY street HAVING COUNT(street) > 1)
 
 
@@ -185,13 +189,42 @@ DROP FUNCTION isFrozenBill;
 --❌Во всех таблицах колонки заполняются автоматически (Дата создания Дата изменения) - 
 -- need to add theese filds?
 
---❌Нельзя несколько актуальных адресов с одним типом, только последний добавленный, остальные изменяют состояние - 
+--❌Нельзя несколько актуальных адресов с одним типом, только последний добавленный,
+--остальные изменяют состояние - 
+GO
+create trigger Adress_INSERT
+on Adress after insert 
+as
+	update Adress set is_actual = 0
+	where adress_type = (select adress_type from inserted) and individual = (select individual from inserted);
+
+
+INSERT INTO Adress VALUES
+(1, 1, 1, 1, 1, 1)
+SELECT * FROM Adress;
+
+
+--go create trigger Contact_UPDATE
+--on Contact after update
+--as
+--	declare @beforeUPD as table(  
+--    id INT NOT NULL,  
+--    old_name_ varchar(200),  
+--	new_name_ varchar(200),  
+--    old_surname varchar(200),  
+--	new_surname varchar(200),
+--	old_legal int,
+--	new_legal int); 
+
+--	set @beforeUPD = (select * from inserted);
+--	set @afterUPD = (select * from deleted);
+--	print @beforeUPD;
+
 
 
 --❌При создании пользователя автоматически создавать Физ лицо и Юр лицо
 GO create trigger Users_INSERT
-ON Users
-after insert
+ON Users after insert
 as
 insert into Contact values ()
 --1) inverse referense between User and Contact tables needed.
@@ -199,3 +232,22 @@ insert into Contact values ()
 --insert into Account table first, then into Contact table, then into User table 
 --2) *Connected with 1st problem* To autofill Contact I should have name
 --and surname (as min.) but there are no such filds at User table
+
+DECLARE @Contact_UPDATE_MODIFICATIONS TABLE (    
+	id INT NOT NULL,  
+    old_name_ varchar(200),  
+	new_name_ varchar(200),  
+    old_surname varchar(200),  
+	new_surname varchar(200),
+	old_legal int,
+	new_legal int); 
+
+UPDATE Contact SET name_ = 'Mike'
+    OUTPUT 
+	Inserted.id,
+	Inserted.name_,
+    Deleted.name_
+    INTO @Contact_UPDATE_MODIFICATIONS (id, new_name_, old_name_) 
+WHERE id = 1
+
+SELECT * FROM @Contact_UPDATE_MODIFICATIONS
