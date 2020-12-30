@@ -233,6 +233,7 @@ insert into Contact values ()
 --2) *Connected with 1st problem* To autofill Contact I should have name
 --and surname (as min.) but there are no such filds at User table
 
+GO
 DECLARE @Contact_UPDATE_MODIFICATIONS TABLE (    
 	id INT NOT NULL,  
     old_name_ varchar(200),  
@@ -242,12 +243,17 @@ DECLARE @Contact_UPDATE_MODIFICATIONS TABLE (
 	old_legal int,
 	new_legal int); 
 
-UPDATE Contact SET name_ = 'Mike'
+UPDATE Contact SET name_ = 'Mike', surname = 'Jackson'
     OUTPUT 
 	Inserted.id,
+	Deleted.name_,
 	Inserted.name_,
-    Deleted.name_
-    INTO @Contact_UPDATE_MODIFICATIONS (id, new_name_, old_name_) 
+	Deleted.surname,
+	Inserted.surname,
+	Deleted.legal_entity,
+	Inserted.legal_entity
+    INTO @Contact_UPDATE_MODIFICATIONS --(id, old_name_, new_name_, old_surname, new_surname, old_legal, new_legal) 
 WHERE id = 1
 
 SELECT * FROM @Contact_UPDATE_MODIFICATIONS
+GO

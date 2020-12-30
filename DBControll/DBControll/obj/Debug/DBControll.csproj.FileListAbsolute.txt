@@ -1,0 +1,12 @@
+D:\Рабочий стол\sc\DBControll\DBControll\bin\Debug\DBControll.exe.config
+D:\Рабочий стол\sc\DBControll\DBControll\bin\Debug\DBControll.exe
+D:\Рабочий стол\sc\DBControll\DBControll\bin\Debug\DBControll.pdb
+D:\Рабочий стол\sc\DBControll\DBControll\bin\Debug\EntityFramework.dll
+D:\Рабочий стол\sc\DBControll\DBControll\bin\Debug\EntityFramework.SqlServer.dll
+D:\Рабочий стол\sc\DBControll\DBControll\bin\Debug\EntityFramework.xml
+D:\Рабочий стол\sc\DBControll\DBControll\bin\Debug\EntityFramework.SqlServer.xml
+D:\Рабочий стол\sc\DBControll\DBControll\obj\Debug\DBControll.csprojAssemblyReference.cache
+D:\Рабочий стол\sc\DBControll\DBControll\obj\Debug\DBControll.csproj.CoreCompileInputs.cache
+D:\Рабочий стол\sc\DBControll\DBControll\obj\Debug\DBControll.csproj.CopyComplete
+D:\Рабочий стол\sc\DBControll\DBControll\obj\Debug\DBControll.exe
+D:\Рабочий стол\sc\DBControll\DBControll\obj\Debug\DBControll.pdb
